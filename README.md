@@ -92,3 +92,9 @@ When the configuration is phrased each key value pair will be converted to an en
 
 If you like to manage the certificates externally, set `letsencrypt.enabled` to `false` and pass environment variables `CERT_FILE` with the path to a PEM crt file with a full certificate chain and `KEY_FILE` with the path to the corresponding key.
 You'll need to mount the certificates when starting the container using `-v` (or `volumes:` if using docker-compose)
+
+## Planned work
+- Adding dynamic DNS to register the domain before creating the certificates
+- Switching from using Caddy to Go acme/letsencrypt packages
+- Integrate Adguard-Home as a package instead on a seperate binary
+
