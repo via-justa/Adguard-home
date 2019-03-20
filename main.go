@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 	"syscall"
 	"time"
 
@@ -27,6 +28,11 @@ func main() {
 	checkERR(err)
 
 	certificateFile, privateKeyFile := filePath(configurationFile, &config)
+
+	// Create/Update DNS record
+	if config.DynamicDNS.Enabled && config.DynamicDNS.APIToken != "" && strings.ToLower(config.Letsencrypt.Provider) == "digitalocean" {
+		dynamicDNS(&config)
+	}
 
 	if config.Letsencrypt.Enabled == false {
 		log.Printf("Certificates mangaed external to the progrem.\nSkipping certificate generation")
