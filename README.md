@@ -53,7 +53,7 @@ $ docker run -d --rm --name adguardhome adguardhome
 
 Or using docker-compose
 ```
-$ cd adGuardHome
+$ cd Adguard-home
 $ docker-compose up -d --build
 ```
 
