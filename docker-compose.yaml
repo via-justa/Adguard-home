@@ -3,7 +3,7 @@ version: '2'
 services:
   adguardhome:
     container_name: adguardhome
-    image: via-justa/adguardhome
+    image: adguardhome
     build: 
       context: .
     restart: unless-stopped
