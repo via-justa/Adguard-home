@@ -1,0 +1,6 @@
+
+https://FQDN
+
+  tls EMAIL {
+    dns PROVIDER
+  }

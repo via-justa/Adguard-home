@@ -1,0 +1,26 @@
+
+version: '2'
+services:
+  adguardhome:
+    container_name: adguardhome
+    image: via-justa/adguardhome
+    build: 
+      context: .
+    restart: unless-stopped
+    networks:
+      - adguardhome
+    volumes: 
+      - certs:/root/.caddy
+    ports:
+      # - "53:53"
+      # - "53:53/udp"
+      # - "853:853"
+      # - "853:853/udp"
+      - "80:80"
+      - "443:443"
+
+networks:
+  adguardhome:
+
+volumes: 
+  certs:

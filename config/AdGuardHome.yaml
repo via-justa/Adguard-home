@@ -1,0 +1,75 @@
+# Let's Encrypt provider settings https://caddyserver.com/docs/automatic-https#dns-challenge
+letsencrypt:
+  enabled: true
+  production: false
+  timeout: 30
+  email: ""
+  provider: digitalocean
+  provider_settings: 
+    DO_AUTH_TOKEN: ""
+
+# AdGuardHome settings https://github.com/AdguardTeam/AdGuardHome/wiki/Configuration#configuration-file
+bind_host: 0.0.0.0
+bind_port: 80
+auth_name: admin
+auth_pass: ChangeM3
+language: ""
+dns:
+  bind_host: 0.0.0.0
+  port: 53
+  protection_enabled: true
+  filtering_enabled: true
+  blocked_response_ttl: 10
+  querylog_enabled: true
+  ratelimit: 20
+  ratelimit_whitelist: []
+  refuse_any: true
+  bootstrap_dns: 8.8.8.8:53
+  parental_sensitivity: 0
+  parental_enabled: false
+  safesearch_enabled: false
+  safebrowsing_enabled: true
+  upstream_dns:
+  - tls://1.1.1.1
+  - tls://1.0.0.1
+tls:
+  enabled: true
+  server_name: ""
+  force_https: true
+  port_https: 443
+  port_dns_over_tls: 853
+  certificate_chain: ""
+  private_key: ""
+filters:
+- enabled: true
+  url: https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt
+  name: AdGuard Simplified Domain Names filter
+  id: 1
+- enabled: true
+  url: https://adaway.org/hosts.txt
+  name: AdAway
+  id: 2
+- enabled: true
+  url: https://hosts-file.net/ad_servers.txt
+  name: hpHosts - Ad and Tracking servers only
+  id: 3
+- enabled: true
+  url: http://www.malwaredomainlist.com/hostslist/hosts.txt
+  name: MalwareDomainList.com Hosts List
+  id: 4
+- enabled: true
+  url: https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts
+  name: StevenBlack hosts file
+  id: 5
+user_rules: []
+dhcp:
+  enabled: false
+  interface_name: ""
+  gateway_ip: ""
+  subnet_mask: ""
+  range_start: ""
+  range_end: ""
+  lease_duration: 0
+log_file: ""
+verbose: false
+schema_version: 2
