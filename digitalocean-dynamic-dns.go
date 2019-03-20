@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/digitalocean/godo"
 	"golang.org/x/oauth2"
@@ -32,39 +33,45 @@ func dynamicDNS(config *ConfigFile) {
 	records, _, err := client.Domains.Records(ctx, extractDomain(config), opt)
 	checkERR(err)
 
-	// Check if record exist
-	for i, record := range records {
+	for {
+		// Check if record exist
+		for i, record := range records {
 
-		if record.Name == extractRecord(config) {
+			if record.Name == extractRecord(config) {
 
-			if record.Data != getExternalIP() {
+				if record.Data != getExternalIP() {
 
-				editRequest := &godo.DomainRecordEditRequest{
-					Type: record.Type,
-					Name: record.Name,
+					editRequest := &godo.DomainRecordEditRequest{
+						Type: record.Type,
+						Name: record.Name,
+						Data: getExternalIP(),
+					}
+
+					domainRecord, _, err := client.Domains.EditRecord(ctx, extractDomain(config), record.ID, editRequest)
+					checkERR(err)
+
+					fmt.Println(strings.Join([]string{"DNS record updated new IP is: ", domainRecord.Data}, ""))
+				}
+
+				// If record could not be found
+			} else if i == len(records)-1 {
+
+				createRequest := &godo.DomainRecordEditRequest{
+					Type: "A",
+					Name: extractRecord(config),
 					Data: getExternalIP(),
 				}
 
-				domainRecord, _, err := client.Domains.EditRecord(ctx, extractDomain(config), record.ID, editRequest)
+				domainRecord, _, err := client.Domains.CreateRecord(ctx, extractDomain(config), createRequest)
 				checkERR(err)
 
-				fmt.Println(strings.Join([]string{"DNS record updated new IP is: ", domainRecord.Data}, ""))
+				fmt.Println(strings.Join([]string{"DNS record created with IP: ", domainRecord.Data}, ""))
 			}
 
-			// If record could not be found
-		} else if i == len(records)-1 {
-
-			createRequest := &godo.DomainRecordEditRequest{
-				Type: "A",
-				Name: extractRecord(config),
-				Data: getExternalIP(),
-			}
-
-			domainRecord, _, err := client.Domains.CreateRecord(ctx, extractDomain(config), createRequest)
-			checkERR(err)
-
-			fmt.Println(strings.Join([]string{"DNS record created with IP: ", domainRecord.Data}, ""))
 		}
+
+		// Run check every 1 hour
+		time.Sleep(1 * time.Hour)
 
 	}
 

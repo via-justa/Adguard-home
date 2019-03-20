@@ -31,7 +31,7 @@ func main() {
 
 	// Create/Update DNS record
 	if config.DynamicDNS.Enabled && config.DynamicDNS.APIToken != "" && strings.ToLower(config.Letsencrypt.Provider) == "digitalocean" {
-		dynamicDNS(&config)
+		go dynamicDNS(&config)
 	}
 
 	if config.Letsencrypt.Enabled == false {
