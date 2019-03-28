@@ -2,7 +2,7 @@
 letsencrypt:
   enabled: true
   production: false
-  timeout: 30
+  timeout: 60
   email: ""
   provider: digitalocean
   provider_settings: 
