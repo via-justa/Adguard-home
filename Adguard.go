@@ -102,7 +102,7 @@ func filePath(configurationFile string, config *ConfigFile) (string, string) {
 
 	if config.Letsencrypt.Enabled == false {
 		if os.Getenv("CERT_FILE") == "" || os.Getenv("KEY_FILE") == "" {
-			log.Printf("Both \"CERT_FILE\" and \"KEY_FILE\" environment variables need to be set when letsencrypt_enabled set to \"false\"")
+			log.Printf("Both \"CERT_FILE\" and \"KEY_FILE\" environment variables need to be set when letsencrypt.enabled set to \"false\"")
 		} else {
 			certPath = os.Getenv("CERT_FILE")
 			keyPath = os.Getenv("KEY_FILE")
