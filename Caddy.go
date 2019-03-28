@@ -36,9 +36,9 @@ func startCaddy(caddyFilePath string, config *ConfigFile, errExit chan error) {
 	var ca string
 
 	if config.Letsencrypt.Production == true {
-		ca = "https://acme-staging-v02.api.letsencrypt.org/directory"
-	} else {
 		ca = "https://acme-v02.api.letsencrypt.org/directory"
+	} else {
+		ca = "https://acme-staging-v02.api.letsencrypt.org/directory"
 	}
 
 	//Start Caddy
