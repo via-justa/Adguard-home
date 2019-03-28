@@ -45,9 +45,9 @@ func updateConfig(certificateFile string, privateKeyFile string, adGurardConfigF
 			log.Printf("Please wait... Time left until timeout: %v\n", untilTimeout)
 			time.Sleep(5 * time.Second)
 			timer = timer + 5
-			if timer == timeout {
+			if timer >= timeout {
 				log.Println("Certificate lookup timed out, pleasse make sure the FQDN selected is right and owned by you")
-				os.Exit(1)
+				os.Exit(18)
 			}
 		} else {
 			log.Printf("Found new/updated certificate in path: %v\n", certificateFile)
