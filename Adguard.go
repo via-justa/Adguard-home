@@ -45,9 +45,9 @@ func updateConfig(certificateFile string, privateKeyFile string, adGurardConfigF
 			log.Printf("Please wait... Time left until timeout: %v\n", untilTimeout)
 			time.Sleep(5 * time.Second)
 			timer = timer + 5
-			if timer == timeout {
+			if timer >= timeout {
 				log.Println("Certificate lookup timed out, pleasse make sure the FQDN selected is right and owned by you")
-				os.Exit(1)
+				os.Exit(18)
 			}
 		} else {
 			log.Printf("Found new/updated certificate in path: %v\n", certificateFile)
@@ -102,7 +102,7 @@ func filePath(configurationFile string, config *ConfigFile) (string, string) {
 
 	if config.Letsencrypt.Enabled == false {
 		if os.Getenv("CERT_FILE") == "" || os.Getenv("KEY_FILE") == "" {
-			log.Printf("Both \"CERT_FILE\" and \"KEY_FILE\" environment variables need to be set when letsencrypt_enabled set to \"false\"")
+			log.Printf("Both \"CERT_FILE\" and \"KEY_FILE\" environment variables need to be set when letsencrypt.enabled set to \"false\"")
 		} else {
 			certPath = os.Getenv("CERT_FILE")
 			keyPath = os.Getenv("KEY_FILE")

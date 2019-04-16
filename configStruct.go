@@ -12,6 +12,10 @@ type ConfigFile struct {
 		Provider         string            `yaml:"provider"`
 		ProviderSettings map[string]string `yaml:"provider_settings"`
 	}
+	DynamicDNS struct {
+		Enabled  bool   `yaml:"enabled"`
+		APIToken string `yaml:"api_token"`
+	}
 	BindHost string `yaml:"bind_host"`
 	BindPort int    `yaml:"bind_port"`
 	UserName string `yaml:"auth_name"`

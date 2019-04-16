@@ -44,7 +44,7 @@ RUN \
 ## build manager
 FROM golang:1.12.1 as manager-builder
 
-ADD ./ /go/src/github.com/via-justa/adguard-home/
+ADD [^_]* /go/src/github.com/via-justa/adguard-home/
 
 WORKDIR /go/src/github.com/via-justa/adguard-home
 
@@ -64,8 +64,8 @@ RUN \
   apk --no-cache --update add ca-certificates \
   && rm -rf /var/cache/apk/* && mkdir -p /opt/adguardhome/conf
 
-ADD config/caddyfile /caddy/caddyfile
-ADD config/AdGuardHome.yaml /opt/adguardhome/conf/AdGuardHome.yaml
+ADD _config/caddyfile /caddy/caddyfile
+ADD _config/AdGuardHome.yaml /opt/adguardhome/conf/AdGuardHome.yaml
 
 VOLUME ["/opt/adguardhome/work", "/root/.caddy"]
 

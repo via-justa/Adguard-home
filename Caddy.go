@@ -28,11 +28,18 @@ func updateCaddyFile(errExit chan error, config *ConfigFile) {
 	ioutil.WriteFile(caddyFilePath, b, 644)
 	log.Println("Caddyfile updated")
 
-	go startCaddy(caddyFilePath, errExit)
+	go startCaddy(caddyFilePath, config, errExit)
 }
 
-func startCaddy(caddyFilePath string, errExit chan error) {
+func startCaddy(caddyFilePath string, config *ConfigFile, errExit chan error) {
 	caddyExecutable := "/usr/local/bin/caddy"
+	var ca string
+
+	if config.Letsencrypt.Production == true {
+		ca = "https://acme-v02.api.letsencrypt.org/directory"
+	} else {
+		ca = "https://acme-staging-v02.api.letsencrypt.org/directory"
+	}
 
 	//Start Caddy
 	log.Println("Starting Caddy")
@@ -42,7 +49,7 @@ func startCaddy(caddyFilePath string, errExit chan error) {
 		"-http-port", "8081",
 		"-https-port", "4434",
 		"-agree",
-		"-ca", "https://acme-staging-v02.api.letsencrypt.org/directory")
+		"-ca", ca)
 
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr

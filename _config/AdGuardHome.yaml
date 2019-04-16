@@ -2,11 +2,16 @@
 letsencrypt:
   enabled: true
   production: false
-  timeout: 30
+  timeout: 60
   email: ""
   provider: digitalocean
   provider_settings: 
     DO_AUTH_TOKEN: ""
+
+# Currently supports only DigitalOcean
+dynamicdns:
+  enabled: true
+  api_token: ""
 
 # AdGuardHome settings https://github.com/AdguardTeam/AdGuardHome/wiki/Configuration#configuration-file
 bind_host: 0.0.0.0
