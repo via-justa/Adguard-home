@@ -1,4 +1,6 @@
 # Adguard Home with DNS over TLS support
+:warning: Starting with AdGuard home v0.99 you can set the service to load certificates from file path. That leads to this project to be unneeded.
+To generate the certificates to disk via Let's Encript you can use [Lego](https://github.com/go-acme/lego) or other service to your likinig and set the path in the AdGuard home GUI.
 
 [AdGuard home](https://www.github.com/AdguardTeam/AdGuardHome) is a free and open source, powerful network-wide Ads & trackers blocking DNS server. 
 
